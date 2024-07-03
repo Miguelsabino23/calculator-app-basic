@@ -26,7 +26,11 @@ const mainOperators = [
 function cycleThroughElements(elements) {
     elements.forEach((calculator) => {
         calculator.addEventListener("click", (event) => {
-            calculation.innerHTML += event.target.innerText;
+            if (result.innerText.startsWith("0")) {
+                result.innerText = event.target.innerText;
+                return;
+            }
+            result.innerHTML += event.target.innerText;
         });
     });
 }
