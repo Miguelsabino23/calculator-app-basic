@@ -8,37 +8,74 @@ const actionClear = document.querySelector(".action__clear-display");
 
 //capturando numeros e operadores
 const calculatorNumber = document.querySelectorAll(".calculator__number");
+const calculatorSinals = document.querySelectorAll(".calculator__sinals");
 const calculatorOperator = document.querySelectorAll(".calculator__operator");
 const calculatorSecOperator = document.querySelectorAll(
     ".calculator__sec-operator"
 );
 const calculatorEqual = document.querySelector(".calculator__equal");
 
+const mainOperators = [
+    ...calculatorSinals,
+    ...calculatorOperator,
+    ...calculatorSecOperator,
+    calculatorEqual,
+];
+
 //função que percorre os elementos de click da calculadora
 function cycleThroughElements(elements) {
     elements.forEach((calculator) => {
-        calculator.addEventListener("click", () => {
-            if (
-                calculator.innerHTML !== "+/-" ||
-                calculator.innerHTML !== "."
-            ) {
-                calculation.innerHTML += parseInt(calculator.innerHTML);
-            }
+        calculator.addEventListener("click", (event) => {
+            calculation.innerHTML += event.target.innerText;
         });
     });
 }
 
-function cycleThroughOperators(operators) {
-    operators.forEach((operator) => {
-        operator.addEventListener("click", () => {
-            calculation.innerHTML += operator.innerHTML;
-        });
-    });
+function makeOperations(event) {
+    switch (event.target.innerText) {
+        case "=":
+            console.log("Realizar operações");
+            break;
+        case "+":
+            console.log("Realizar soma");
+            break;
+        case "-":
+            console.log("Realizar subtração");
+            break;
+        case "x":
+            console.log("Realizar multiplicação");
+            break;
+        case "/":
+            console.log("Realizar divisão");
+            break;
+        case "%":
+            console.log("Realizar porcentagem");
+            break;
+        case "+/-":
+            console.log("Realizar inversão de sinal");
+            break;
+        case "()":
+            console.log("Realizar precedência");
+            break;
+        case "C":
+            console.log("Realizar deleção");
+            break;
+        case ".":
+            console.log("Realizar operação decimal");
+            break;
+        default:
+            console.log("Evento não configurado");
+            break;
+    }
 }
 
-calculatorEqual.addEventListener("click", () => {
-    console.log(numbers);
-});
+function cycleThroughOperators(elements) {
+    elements.forEach((calculator) => {
+        calculator.addEventListener("click", makeOperations);
+    });
+}
 
 cycleThroughElements(calculatorNumber);
-cycleThroughOperators(calculatorOperator);
+cycleThroughElements(calculatorSinals);
+cycleThroughElements(calculatorOperator);
+cycleThroughOperators(mainOperators);
