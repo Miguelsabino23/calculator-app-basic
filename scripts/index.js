@@ -62,7 +62,8 @@ function makeOperations(event) {
             console.log("Realizar precedência");
             break;
         case "C":
-            console.log("Realizar deleção");
+            result.innerText = 0;
+            calculation.innerText = 0;
             break;
         case ".":
             console.log("Realizar operação decimal");
