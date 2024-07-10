@@ -29,6 +29,12 @@ function cycleThroughElements(elements) {
     });
 }
 
+function checkLastCharacter(event) {
+    if (result.innerText.slice(-1).includes("+" || "-" || "x" || "/" || "%"))
+        return;
+    result.innerText += event;
+}
+
 function makeOperations(event) {
     let eventTarget = event.target.innerText;
     switch (event.target.innerText) {
@@ -55,7 +61,8 @@ function makeOperations(event) {
             console.log("Realizar operações");
             break;
         case "+":
-            console.log("Realizar soma");
+            checkLastCharacter(eventTarget);
+
             break;
         case "-":
             console.log("Realizar subtração");
