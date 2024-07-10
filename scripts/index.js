@@ -30,8 +30,9 @@ function cycleThroughElements(elements) {
 }
 
 function checkLastCharacter(event) {
-    if (result.innerText.slice(-1).includes("+" || "-" || "x" || "/" || "%"))
-        return;
+    const operators = ["+", "-", "x", "/", "%"];
+    const lastChar = result.innerText.slice(-1);
+    if (operators.includes(lastChar)) return;
     result.innerText += event;
 }
 
@@ -62,19 +63,18 @@ function makeOperations(event) {
             break;
         case "+":
             checkLastCharacter(eventTarget);
-
             break;
         case "-":
-            console.log("Realizar subtração");
+            checkLastCharacter(eventTarget);
             break;
         case "x":
-            console.log("Realizar multiplicação");
+            checkLastCharacter(eventTarget);
             break;
         case "/":
-            console.log("Realizar divisão");
+            checkLastCharacter(eventTarget);
             break;
         case "%":
-            console.log("Realizar porcentagem");
+            checkLastCharacter(eventTarget);
             break;
         case "+/-":
             console.log("Realizar inversão de sinal");
