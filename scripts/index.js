@@ -22,6 +22,8 @@ const mainOperators = [
     calculatorEqual,
 ];
 
+const operators = ["+", "-", "X", "/", "%"];
+
 //função que percorre os elementos de click da calculadora
 function cycleThroughElements(elements) {
     elements.forEach((calculator) => {
@@ -29,11 +31,23 @@ function cycleThroughElements(elements) {
     });
 }
 
+//Função que verifica se o ultimo caracter é um operador, se for ele não deixa você adicionar um operador ao lado.
 function checkLastCharacter(event) {
-    const operators = ["+", "-", "x", "/", "%"];
     const lastChar = result.innerText.slice(-1);
     if (operators.includes(lastChar)) return;
     result.innerText += event;
+}
+
+function checkContainsDot(event) {
+    const lastChar = result.innerText.slice(-1);
+    if (result.innerText.includes(".")) return;
+    if (operators.includes(lastChar)) return;
+
+    result.innerText += event;
+
+    if (result.innerText.startsWith("0") && !result.innerText.includes(".")) {
+        result.innerText = event;
+    }
 }
 
 function makeOperations(event) {
@@ -59,20 +73,13 @@ function makeOperations(event) {
             result.innerText += eventTarget;
             break;
         case "=":
-            console.log("Realizar operações");
+            let results = result.innerText.split(/[\+\-\X\/\%]/);
+            console.log(results);
             break;
         case "+":
-            checkLastCharacter(eventTarget);
-            break;
         case "-":
-            checkLastCharacter(eventTarget);
-            break;
-        case "x":
-            checkLastCharacter(eventTarget);
-            break;
+        case "X":
         case "/":
-            checkLastCharacter(eventTarget);
-            break;
         case "%":
             checkLastCharacter(eventTarget);
             break;
@@ -87,14 +94,16 @@ function makeOperations(event) {
             calculation.innerText = "0";
             break;
         case ".":
-            if (result.innerText.includes(".")) return;
-            result.innerText += eventTarget;
-            if (
-                result.innerText.startsWith("0") &&
-                !result.innerText.includes(".")
-            ) {
-                result.innerText = eventTarget;
-            }
+            checkContainsDot(eventTarget);
+            // const partes = result.innerText.split("");
+            // if (result.innerText.includes(".")) return;
+            // result.innerText += eventTarget;
+            // if (
+            //     result.innerText.startsWith("0") &&
+            //     !result.innerText.includes(".")
+            // ) {
+            //     result.innerText = eventTarget;
+            // }
             break;
         default:
             console.log("Evento não configurado");
