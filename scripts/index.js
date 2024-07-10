@@ -25,18 +25,32 @@ const mainOperators = [
 //função que percorre os elementos de click da calculadora
 function cycleThroughElements(elements) {
     elements.forEach((calculator) => {
-        calculator.addEventListener("click", (event) => {
-            if (result.innerText.startsWith("0")) {
-                result.innerText = event.target.innerText;
-                return;
-            }
-            result.innerHTML += event.target.innerText;
-        });
+        calculator.addEventListener("click", makeOperations);
     });
 }
 
 function makeOperations(event) {
+    let eventTarget = event.target.innerText;
     switch (event.target.innerText) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+        case "0":
+            if (
+                result.innerText.startsWith("0") &&
+                !result.innerText.includes(".")
+            ) {
+                result.innerText = eventTarget;
+                return;
+            }
+            result.innerText += eventTarget;
+            break;
         case "=":
             console.log("Realizar operações");
             break;
@@ -62,11 +76,18 @@ function makeOperations(event) {
             console.log("Realizar precedência");
             break;
         case "C":
-            result.innerText = 0;
-            calculation.innerText = 0;
+            result.innerText = "0";
+            calculation.innerText = "0";
             break;
         case ".":
-            console.log("Realizar operação decimal");
+            if (result.innerText.includes(".")) return;
+            result.innerText += eventTarget;
+            if (
+                result.innerText.startsWith("0") &&
+                !result.innerText.includes(".")
+            ) {
+                result.innerText = eventTarget;
+            }
             break;
         default:
             console.log("Evento não configurado");
