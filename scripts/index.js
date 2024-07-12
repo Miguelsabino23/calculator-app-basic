@@ -50,6 +50,17 @@ function checkContainsDot(event) {
     }
 }
 
+function performOperator() {
+    const captureNumbers = result.innerText.split(/[\+\-\X\/\%]/);
+    for (let index = 0; index < captureNumbers.length; index++) {
+        const element = Number(captureNumbers[index]);
+        for (let index1 = 1; index1 < captureNumbers.length; index1++) {
+            const element1 = Number(captureNumbers[index1]);
+            result.innerText = element + element1;
+        }
+    }
+}
+
 function makeOperations(event) {
     let eventTarget = event.target.innerText;
     switch (event.target.innerText) {
@@ -73,8 +84,7 @@ function makeOperations(event) {
             result.innerText += eventTarget;
             break;
         case "=":
-            let results = result.innerText.split(/[\+\-\X\/\%]/);
-            console.log(results);
+            performOperator();
             break;
         case "+":
         case "-":
@@ -95,15 +105,6 @@ function makeOperations(event) {
             break;
         case ".":
             checkContainsDot(eventTarget);
-            // const partes = result.innerText.split("");
-            // if (result.innerText.includes(".")) return;
-            // result.innerText += eventTarget;
-            // if (
-            //     result.innerText.startsWith("0") &&
-            //     !result.innerText.includes(".")
-            // ) {
-            //     result.innerText = eventTarget;
-            // }
             break;
         default:
             console.log("Evento não configurado");
