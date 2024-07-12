@@ -50,14 +50,21 @@ function checkContainsDot(event) {
     }
 }
 
-function performOperator() {
+function performOperator(event) {
     const captureNumbers = result.innerText.split(/[\+\-\X\/\%]/);
-    for (let index = 0; index < captureNumbers.length; index++) {
-        const element = Number(captureNumbers[index]);
-        for (let index1 = 1; index1 < captureNumbers.length; index1++) {
-            const element1 = Number(captureNumbers[index1]);
-            result.innerText = element + element1;
-        }
+    const number1 = Number(captureNumbers[0]);
+    const number2 = Number(captureNumbers[1]);
+    if (event.includes("+")) {
+        result.innerText = number1 + number2;
+    }
+    if (event.includes("-")) {
+        result.innerText = number1 - number2;
+    }
+    if (event.includes("/")) {
+        result.innerText = number1 / number2;
+    }
+    if (event.includes("X")) {
+        result.innerText = number1 * number2;
     }
 }
 
@@ -84,7 +91,7 @@ function makeOperations(event) {
             result.innerText += eventTarget;
             break;
         case "=":
-            performOperator();
+            performOperator(result.innerText);
             break;
         case "+":
         case "-":
