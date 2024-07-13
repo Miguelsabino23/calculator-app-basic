@@ -31,6 +31,16 @@ function cycleThroughElements(elements) {
     });
 }
 
+actionClear.addEventListener("click", () => {
+    if (result.innerText.length === 1) {
+        result.innerText = "0";
+        return;
+    }
+    const lastChar = result.innerText.slice(-1);
+    result.innerText = result.innerText.replace(lastChar, "");
+    console.log(result.innerText.length);
+});
+
 //Função que verifica se o ultimo caracter é um operador, se for ele não deixa você adicionar um operador ao lado.
 function checkLastCharacter(event) {
     const lastChar = result.innerText.slice(-1);
@@ -66,6 +76,9 @@ function performOperator(event) {
     if (event.includes("X")) {
         result.innerText = number1 * number2;
     }
+    if (event.includes("%")) {
+        result.innerText = (number1 / 100) * number2;
+    }
 }
 
 function makeOperations(event) {
@@ -92,6 +105,10 @@ function makeOperations(event) {
             break;
         case "=":
             performOperator(result.innerText);
+            if (calculation.innerText.startsWith("0")) {
+                return (calculation.innerText = result.innerText);
+            }
+            calculation.innerText += " " + result.innerText;
             break;
         case "+":
         case "-":
