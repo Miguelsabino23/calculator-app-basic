@@ -42,9 +42,11 @@ actionClear.addEventListener("click", () => {
 });
 
 //Função que verifica se o ultimo caracter é um operador, se for ele não deixa você adicionar um operador ao lado.
-function checkLastCharacter(event) {
-    const lastChar = result.innerText.slice(-1);
-    if (operators.includes(lastChar)) return;
+function checkOneOperator(event) {
+    const hasOperator = operators.some(op => result.innerText.includes(op));
+    if (operators.includes(event) && hasOperator) {
+        return;
+    }
     result.innerText += event;
 }
 
@@ -120,7 +122,7 @@ function makeOperations(event) {
         case "X":
         case "/":
         case "%":
-            checkLastCharacter(eventTarget);
+            checkOneOperator(eventTarget);
             break;
         case "+/-":
             console.log("Realizar inversão de sinal");
