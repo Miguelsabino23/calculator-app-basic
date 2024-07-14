@@ -50,7 +50,12 @@ function checkLastCharacter(event) {
 
 function checkContainsDot(event) {
     const lastChar = result.innerText.slice(-1);
-    if (result.innerText.includes(".")) return;
+    const captureNumbers = result.innerText.split(/[\+\-\X\/\%]/);
+    const num1 = captureNumbers[0]
+    const num2 = captureNumbers[1]
+
+    
+    if (num1.includes(".") && num2.includes(".")) return;
     if (operators.includes(lastChar)) return;
 
     result.innerText += event;
