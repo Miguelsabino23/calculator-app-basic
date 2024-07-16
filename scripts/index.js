@@ -38,16 +38,17 @@ actionClear.addEventListener("click", () => {
     }
     const lastChar = result.innerText.slice(-1);
     result.innerText = result.innerText.replace(lastChar, "");
-    console.log(result.innerText.length);
 });
 
-//Função que verifica se o ultimo caracter é um operador, se for ele não deixa você adicionar um operador ao lado.
+//Função que verifica se contem um operador, se já conter um operador não será possível colocar outro operador
 function checkOneOperator(event) {
     const hasOperator = operators.some(op => result.innerText.includes(op));
     if (operators.includes(event) && hasOperator) {
         return;
-    }
+    } 
+    if (result.innerText.startsWith("0")) return
     result.innerText += event;
+    calculation.innerText += event
 }
 
 function checkContainsDot(event) {
@@ -61,6 +62,7 @@ function checkContainsDot(event) {
     if (operators.includes(lastChar)) return;
 
     result.innerText += event;
+    calculation.innerText += event
 
     if (result.innerText.startsWith("0") && !result.innerText.includes(".")) {
         result.innerText = event;
@@ -106,15 +108,18 @@ function makeOperations(event) {
                 !result.innerText.includes(".")
             ) {
                 result.innerText = eventTarget;
+                calculation.innerText = eventTarget
                 return;
             }
             result.innerText += eventTarget;
+            calculation.innerText += eventTarget
             break;
         case "=":
             performOperator(result.innerText);
             if (calculation.innerText.startsWith("0")) {
                 return (calculation.innerText = result.innerText);
             }
+            calculation.innerText += eventTarget
             calculation.innerText += " " + result.innerText;
             break;
         case "+":
