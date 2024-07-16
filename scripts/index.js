@@ -15,6 +15,9 @@ const calculatorSecOperator = document.querySelectorAll(
 );
 const calculatorEqual = document.querySelector(".calculator__equal");
 
+//capturando elementos que vão receber elementos
+const actionButtons = document.querySelector(".action__buttons")
+
 const mainOperators = [
     ...calculatorSinals,
     ...calculatorOperator,
@@ -51,6 +54,7 @@ function checkOneOperator(event) {
     calculation.innerText += event
 }
 
+//Função que contem condições para tratar o ponto.
 function checkContainsDot(event) {
     const lastChar = result.innerText.slice(-1);
     const captureNumbers = result.innerText.split(/[\+\-\X\/\%]/);
@@ -67,6 +71,14 @@ function checkContainsDot(event) {
     if (result.innerText.startsWith("0") && !result.innerText.includes(".")) {
         result.innerText = event;
     }
+}
+
+//Função que cria o elemento que recebe o resultado.
+function createActionResult () {
+    const div = document.createElement("div")
+    div.classList = "action__result"
+    actionButtons.insertBefore(div, actionClear)
+    div.innerText = result.innerText
 }
 
 function performOperator(event) {
@@ -121,6 +133,10 @@ function makeOperations(event) {
             }
             calculation.innerText += eventTarget
             calculation.innerText += " " + result.innerText;
+            if(actionButtons.firstElementChild.classList.contains("action__result")) {
+                actionButtons.firstElementChild.remove()
+            }
+            createActionResult()
             break;
         case "+":
         case "-":
