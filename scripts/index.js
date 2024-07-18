@@ -18,6 +18,11 @@ const calculatorEqual = document.querySelector(".calculator__equal");
 //capturando elementos que vão receber elementos
 const actionButtons = document.querySelector(".action__buttons")
 
+//capturando elementos que vão interagir com o histórico
+const calculatorHistory = document.querySelector(".calculator__history")
+const calculatorGroup = document.querySelectorAll(".calculator__group")
+const actionHistory = document.querySelector(".action__history")
+
 const mainOperators = [
     ...calculatorSinals,
     ...calculatorOperator,
@@ -34,6 +39,23 @@ function cycleThroughElements(elements) {
     });
 }
 
+
+//função que abre o histórico
+actionHistory.addEventListener("click", () => {
+    calculatorGroup.forEach(elements => {
+        if (elements.style.display === "flex") {
+            elements.style.display = "none"
+            calculatorHistory.style.display = "flex"
+            
+        } else {
+            elements.style.display = "flex"
+            calculatorHistory.style.display = "none"
+            
+        }
+    })
+})
+
+//botão que apaga o ultimo caracter
 actionClear.addEventListener("click", () => {
     if (result.innerText.length === 1) {
         result.innerText = "0";
